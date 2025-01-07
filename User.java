@@ -16,7 +16,7 @@
         fCount = 0;                      // initial number of followees
     }
 
-    /** Creates a user with some followees. The only purpose of this constructor is 
+    /** Creates a user with some followees. The only purpose of this constructor is
      *  to allow testing the toString and follows methods, before implementing other methods. */
     public User(String name, boolean gettingStarted) {
         this(name);
@@ -43,35 +43,70 @@
 
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
-        //// Replace the following statement with your code
+        for(int i = 0; i < follows.length; i++){
+            if (name.equals(follows[i])){
+                return true;
+            }
+        }
         return false;
     }
-    /** Makes this user follow the given name. If successful, returns true. 
+    
+    /** Makes this user follow the given name. If successful, returns true.
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        //// Replace the following statement with your code
-        return false;
+        if(follows(name) || follows.length == maxfCount){
+            return false;
+        }
+        follows[fCount + 1] = name;
+        fCount += 1;
+        return true;
+
     }
 
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
-        //// Replace the following statement with your code
-        return false;
+        if(follows(name)){
+            for(int i = 0; i < follows.length - 1; i++){
+                if(follows[i].equals(name)){
+                follows[i] = null;
+                fCount = fCount - 1;
+                arrFixes(i);
+                return true;
+            }
+        }
     }
+    return false;
+}
+/** fix the arry of of followers such that all the name are one by onen*/
+    public void arrFixes(int x){
+        if(x != 10){
+        for(int i = x ; i < follows.length; i++){
+            follows[i] = follows[x + 1];
+            }
+        }
+    }
+
 
     /** Counts the number of users that both this user and the other user follow.
     /*  Notice: This is the size of the intersection of the two follows lists. */
     public int countMutual(User other) {
-         //// Replace the following statement with your code
-        return 0;
+        if(fCount == 0 || other.fCount == 0){
+            return 0;
+        }
+        int cunt = 0;
+        for(int i = 0; i < follows.length; i++){
+            if(other.follows(follows[i])){
+                cunt++;
+            }
+        }
+        return cunt;
     }
 
     /** Checks is this user is a friend of the other user.
      *  (if two users follow each other, they are said to be "friends.") */
     public boolean isFriendOf(User other) {
-        //// Replace the following statement with your code
-        return false;
+        return (follows(other.name) && other.follows(name));
     }
     /** Returns this user's name, and the names that s/he follows. */
     public String toString() {
