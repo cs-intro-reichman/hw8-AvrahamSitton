@@ -67,8 +67,9 @@
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
         if(follows(name)){
-            for(int i = 0; i < follows.length - 1; i++){
-                if(follows[i].equals(name)){
+            for(int i = 0; i < follows.length; i++){
+                String currentU = follows[i];
+                if(currentU.equals(name)){
                 follows[i] = null;
                 fCount--;
                 arrFixes(i);
@@ -80,7 +81,7 @@
 }
 /** fix the arry of of followers such that all the name are one by onen*/
     public void arrFixes(int i){
-        for(int j = follows.length; j > i; j--){
+        for(int j = follows.length - 1; j > i; j--){
             String flip = follows[j];
             if(flip != null){
             follows[i] = flip;

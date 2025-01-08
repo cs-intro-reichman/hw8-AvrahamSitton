@@ -32,9 +32,12 @@ public class Network {
      */
     public User getUser(String name) {
         for(int i = 0; i < users.length; i++){
-            if(users[i].getName().equals(name)){
-                return users[i];
+            if(users[i] != null){
+                if(users[i].getName().equals(name)){
+                    return users[i];
+                }
             }
+
         }
         return null;
 }
