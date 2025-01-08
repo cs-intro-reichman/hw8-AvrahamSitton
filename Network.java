@@ -32,7 +32,7 @@ public class Network {
      */
     public User getUser(String name) {
         for(int i = 0; i < users.length; i++){
-            if(users[i].getName().equals(name) && users[i] != null){
+            if(users[i].getName().equals(name)){
                 return users[i];
             }
         }
@@ -48,7 +48,7 @@ public class Network {
             for(int i = 0; i < users.length; i++){
                 if(users[i] == null){
                     users[i] = new User(name);
-                    userCount += 1;
+                    userCount++;
                     return true;
                 }
             }
@@ -61,7 +61,11 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        return getUser(name1).addFollowee(name2) && getUser(name2).addFollowee(name1);
+        if(getUser(name1).getName().equals(name1) && getUser(name2).getName().equals(name2)){
+            return getUser(name1).addFollowee(name2);
+        }
+        return false;
+
     }
 
 
@@ -80,11 +84,12 @@ public class Network {
         }
         return null;
     }
+
     /*retern the how meny followes for given user have in this Network */
     public int followed(User user){
         int followewBy = 0;
         for(int i = 0; i < users.length; i++){
-            if(users[i] != null && !users[i].getName().equals(user.getName())){
+            if(users[i] != null && users[i] != user){
                 if(users[i].follows(user.getName())){
                     followewBy++;
                 }
@@ -119,10 +124,10 @@ public class Network {
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
         String ans = new String();
-for(int i = 0; i < users.length; i++){
-    if(users[i] != null){
-        ans = ans + users[i] + " ";
-    }
+        for(int i = 0; i < users.length; i++){
+            if(users[i] != null){
+                ans = ans + users[i].toString() + " ";
+            }
 
         }
         return ans;

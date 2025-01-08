@@ -54,11 +54,11 @@
     /** Makes this user follow the given name. If successful, returns true.
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        if(follows(name) || follows.length == maxfCount){
+        if(follows(name) || fCount == maxfCount){
             return false;
         }
-        follows[fCount + 1] = name;
-        fCount += 1;
+        follows[fCount] = name;
+        fCount ++;
         return true;
 
     }
@@ -70,7 +70,7 @@
             for(int i = 0; i < follows.length - 1; i++){
                 if(follows[i].equals(name)){
                 follows[i] = null;
-                fCount = fCount - 1;
+                fCount--;
                 arrFixes(i);
                 return true;
             }
@@ -79,10 +79,13 @@
     return false;
 }
 /** fix the arry of of followers such that all the name are one by onen*/
-    public void arrFixes(int x){
-        if(x != 10){
-        for(int i = x ; i < follows.length; i++){
-            follows[i] = follows[x + 1];
+    public void arrFixes(int i){
+        for(int j = follows.length; j > i; j--){
+            String flip = follows[j];
+            if(flip != null){
+            follows[i] = flip;
+            follows[j] = null;
+            return;
             }
         }
     }
