@@ -50,7 +50,7 @@
         }
         return false;
     }
-    
+
     /** Makes this user follow the given name. If successful, returns true.
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
@@ -72,7 +72,7 @@
                 if(currentU.equals(name)){
                 follows[i] = null;
                 fCount--;
-                arrFixes(i);
+                closeTheGap(i);
                 return true;
             }
         }
@@ -80,7 +80,7 @@
     return false;
 }
 /** fix the arry of of followers such that all the name are one by onen*/
-    public void arrFixes(int i){
+    public void closeTheGap(int i){
         for(int j = follows.length - 1; j > i; j--){
             String flip = follows[j];
             if(flip != null){
