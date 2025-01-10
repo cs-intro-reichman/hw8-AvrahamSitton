@@ -41,8 +41,10 @@
         return fCount;
     }
 
+
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
+        if(name == null) return false;
         for(int i = 0; i < follows.length; i++){
             if (name.equals(follows[i])){
                 return true;
@@ -99,7 +101,7 @@
             return 0;
         }
         int cunt = 0;
-        for(int i = 0; i < follows.length; i++){
+        for(int i = 0; i < fCount; i++){
             if(other.follows(follows[i])){
                 cunt++;
             }
