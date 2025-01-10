@@ -56,11 +56,10 @@
     /** Makes this user follow the given name. If successful, returns true.
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        if(follows(name) || fCount == maxfCount){
+        if (fCount == maxfCount || !follows(name) || getName().equals(name)) {
             return false;
         }
-        follows[fCount] = name;
-        fCount ++;
+        follows[fCount++] = name;
         return true;
 
     }
@@ -68,18 +67,17 @@
     /** Removes the given name from the follows list of this user. If successful, returns true.
      *  If the name is not in the list, does nothing and returns false. */
     public boolean removeFollowee(String name) {
-        if(follows(name)){
-            for(int i = 0; i < follows.length; i++){
-                String currentU = follows[i];
-                if(currentU.equals(name)){
+        boolean removed = false;
+        for (int i = 0; i < fCount; i++) {
+            if (removed) {
+                follows[i - 1] = follows[i];
+            } else if (follows[i].equals(name)) {
                 follows[i] = null;
+                removed = true;
                 fCount--;
-                closeTheGap(i);
-                return true;
             }
         }
-    }
-    return false;
+        return removed;
 }
 /** fix the arry of of followers such that all the name are one by onen*/
     public void closeTheGap(int i){
